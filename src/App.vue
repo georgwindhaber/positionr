@@ -1,6 +1,16 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <div class="container mx-auto">
+    <div class="positions flex-col p-3">
+      <button
+        v-for="(position, index) of positions"
+        :key="index"
+        class="w-full rounded shadow-md mt-3 p-3"
+      >
+        <h2 class="text-xl font-bold">{{ position.title }}</h2>
+        <p>{{ position.excerpt }}</p>
+      </button>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -9,19 +19,21 @@ import HelloWorld from "./components/HelloWorld.vue";
 
 export default defineComponent({
   name: "App",
+  data() {
+    return {
+      positions: [
+        { title: "Radwege", excerpt: "Lorem ipsum dolor sit amet, consectuor" },
+        {
+          title: "Bedingungsloses Grundeinkommen",
+          excerpt: "Jeder soll leben können und das fair",
+        },
+      ],
+    };
+  },
   components: {
     HelloWorld,
   },
 });
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style></style>
