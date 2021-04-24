@@ -1,19 +1,19 @@
 <template>
   <div class="container mx-auto h-full bg-gray-50">
     <div class="positions flex-col p-3">
-      <button
+      <router-link
+        :to="'/position/' + position.id"
         v-for="(position, index) of positions"
         :key="index"
-        class="w-full rounded shadow-md focus:shadow focus:outline-none mt-3 p-3 bg-white"
       >
-        <router-link :to="'/position/' + position.id">
+        <div
+          class="w-full rounded shadow-md focus:shadow focus:outline-none mt-3 p-3 bg-white"
+        >
           <h2 class="text-xl font-bold">{{ position.title }}</h2>
-        </router-link>
-        <p>{{ position.excerpt }}</p>
-      </button>
+          <p>{{ position.excerpt }}</p>
+        </div>
+      </router-link>
     </div>
-    <router-link to="/">Go to Home</router-link>
-    <router-view></router-view>
   </div>
 </template>
 
