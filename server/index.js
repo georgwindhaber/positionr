@@ -4,7 +4,6 @@ const port = 3001;
 
 const dbConnection = require("./db-connector")
 
-dbConnection.create("positions", {test: "new era test data"})
 
 // Parse json bodies
 app.use(express.json());
@@ -20,7 +19,8 @@ app.get("/position/:id", (req, res) => {
 
 // CREATE POSITION
 app.put("/position", (req, res) => {
-  res.send("Position count " + counter);
+  dbConnection.create("positions", req.body)
+  res.send("Created " + req.body);
 });
 
 app.listen(port, () => {
