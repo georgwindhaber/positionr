@@ -6,32 +6,40 @@ const url = "mongodb://localhost:27017";
 const dbName = "positionr";
 const client = new MongoClient(url);
 
-// Use connect method to connect to the server
-client.connect(function (err) {
-  assert.strictEqual(null, err);
-  console.log("Connected successfully to server");
-
-  const db = client.db(dbName);
-
-  const collection = db.collection("positions");
-
-  collection.find({}).toArray((err, docs) => {
-    assert.strictEqual(err, null);
-    console.log(docs);
-  });
-
-  client.close();
-});
-
-export default {
+module.exports = {
   create(collectionName, data) {
     client.connect((err) => {
+      if (err) {
+        console.error("ERROR:", err);
+        return;
+      }
+
+      // Connect to db
       const db = client.db(dbName);
-      const collection = db.collection(collectionName);
 
-      collection.insert(data);
+      // Check if collection exists
+      db.listCollections()
+        .toArray()
+        .then((collections) => {
+          const existingCollection = collections.find(
+            (collection) => collection.name == collectionName
+          );
 
-      client.close();
+          // CASE: Collection exists
+          if (existingCollection) {
+            // Insert data into existing collection
+            const collection = db.collection(collectionName);
+            collection.insertOne(data, (e) => {
+              console.log("event", e);
+            });
+          } else {
+            // CASE: Collection does not exist (error)
+            console.error(
+              `ERROR: collection "${collectionName}" does not exist in the database ${dbName}`
+            );
+          }
+          client.close();
+        });
     });
   },
   read(collectionName, id) {},
