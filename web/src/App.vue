@@ -13,6 +13,7 @@
           <p>{{ position.excerpt }}</p>
         </div>
       </router-link>
+      <router-link tag="button" to="/position/create"> + Neu </router-link>
     </div>
   </div>
 </template>

@@ -1,8 +1,12 @@
 import { createApp } from "vue";
 import { createWebHistory, createRouter } from "vue-router";
-import App from "./App.vue";
 import Root from "./Root.vue";
+
+// Import Pages
+import App from "./App.vue";
+import Create from "./pages/Position/Create.vue";
 import Position from "./pages/Position/Position.vue";
+
 import "./index.css";
 
 // 2. Define some routes
@@ -12,6 +16,7 @@ import "./index.css";
 const history = createWebHistory();
 const routes = [
   { path: "/", component: App },
+  { path: "/position/create", component: Create },
   { path: "/position/:id", component: Position },
 ];
 const router = createRouter({

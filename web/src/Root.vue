@@ -1,6 +1,8 @@
 <template>
-  <h1>Unwanted header!</h1>
-  <router-view></router-view>
+  <div class="body">
+    <h1>Unwanted header!</h1>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script lang="ts">
