@@ -3,7 +3,7 @@ import { createWebHistory, createRouter } from "vue-router";
 import Root from "./Root.vue";
 
 // Import Pages
-import App from "./App.vue";
+import List from "./pages/Position/List.vue";
 import Create from "./pages/Position/Create.vue";
 import Position from "./pages/Position/Position.vue";
 
@@ -15,7 +15,7 @@ import "./index.css";
 
 const history = createWebHistory();
 const routes = [
-  { path: "/", component: App },
+  { path: "/", component: List },
   { path: "/position/create", component: Create },
   { path: "/position/:id", component: Position },
 ];

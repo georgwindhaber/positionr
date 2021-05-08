@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto h-full bg-gray-50">
+  <div class="container mx-auto h-full">
     <div class="positions flex-col p-3">
       <router-link
         :to="'/position/' + position.id"
