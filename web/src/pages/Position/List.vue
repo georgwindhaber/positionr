@@ -6,12 +6,12 @@
         v-for="(position, index) of positions"
         :key="index"
       >
-        <div
+        <button
           class="w-full rounded shadow-md focus:shadow focus:outline-none mt-3 p-3 bg-white"
         >
           <h2 class="text-xl font-bold">{{ position.title }}</h2>
           <p>{{ position.excerpt }}</p>
-        </div>
+        </button>
       </router-link>
       <router-link tag="button" to="/position/create"> + Neu </router-link>
     </div>

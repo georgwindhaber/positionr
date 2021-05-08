@@ -21,6 +21,11 @@ export default {
       default: null,
     },
   },
+  computed: {
+    positionId() {
+      return this.$route.params.id;
+    },
+  },
   methods: {
     goBack() {
       this.$root.site = "list";

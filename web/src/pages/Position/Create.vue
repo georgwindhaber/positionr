@@ -1,5 +1,5 @@
 <template>
-  <div class="p-3 bg-gray-50">
+  <div class="rounded shadow-md m-3 p-3 bg-white">
     <h1>Neue Position</h1>
 
     <div class="w-100 pb-3">
@@ -42,6 +42,9 @@ export default {
     checkAndSave() {
       this.$router.push("/");
     },
+    submitPosition() {
+
+    }
   },
 };
 </script>
