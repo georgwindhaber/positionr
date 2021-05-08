@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     checkAndSave() {
-    //   this.$router.push("/positions");
+      this.$router.push("/");
     },
   },
 };

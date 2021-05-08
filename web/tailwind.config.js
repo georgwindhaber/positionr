@@ -6,7 +6,7 @@ module.exports = {
   },
   variants: {
     extend: {
-    //  borderWidth: ['focus'],
+     borderWidth: ['focus'],
     }
   },
   plugins: [],
