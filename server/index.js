@@ -1,9 +1,12 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const port = 3001;
 
-const dbConnection = require("./db-connector")
+const dbConnection = require("./db-connector");
 
+// Allow CORS
+app.use(cors());
 
 // Parse json bodies
 app.use(express.json());
@@ -19,7 +22,12 @@ app.get("/position/:id", (req, res) => {
 
 // CREATE POSITION
 app.put("/position", (req, res) => {
-  dbConnection.create("positions", req.body)
+  const position = {
+    title: req.body.title,
+    description: req.body.description,
+  };
+  console.log(position);
+  dbConnection.create("positions", position);
   res.send("Created " + req.body);
 });
 

@@ -22,7 +22,7 @@
 
     <button
       type="submit"
-      @click="checkAndSave"
+      @click="submitPosition"
       class="rounded px-5 py-2 bg-white hover:bg-gray-100 shadow focus:shadow-sm"
     >
       Speichern
@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
@@ -43,8 +45,16 @@ export default {
       this.$router.push("/");
     },
     submitPosition() {
-
-    }
+      axios("http://localhost:3001/position", {
+        method: "PUT",
+        data: {
+          title: this.pTitle,
+          description: this.pDescription,
+        },
+      }).then((data) => {
+        console.log(data);
+      });
+    },
   },
 };
 </script>

@@ -9,44 +9,19 @@ const client = new MongoClient(url, {
   useUnifiedTopology: true,
 });
 
+client.connect();
+
 module.exports = {
-  create(collectionName, data) {
-    client.connect((err) => {
-      if (err) {
-        console.error("ERROR:", err);
-        return;
-      }
+  async create(collectionName, data) {
 
-      // Connect to db
-      const db = client.db(dbName);
-
-      // Check if collection exists
-      db.listCollections()
-        .toArray()
-        .then((collections) => {
-          const existingCollection = collections.find(
-            (collection) => collection.name == collectionName
-          );
-
-          // CASE: Collection exists
-          if (existingCollection) {
-            // Insert data into existing collection
-            const collection = db.collection(collectionName);
-            collection.insertOne(data, (e) => {
-              console.log("event", e);
-            });
-          } else {
-            // CASE: Collection does not exist (error)
-            console.error(
-              `ERROR: collection "${collectionName}" does not exist in the database ${dbName}`
-            );
-          }
-          client.close();
-        });
-    });
+    // Connect to db
+    const db = client.db(dbName);
+    const collection = db.collection(collectionName);
+    const result = await collection.insertOne(data);
+    console.log(result.result.ok)
   },
   read(collectionName) {
-    console.log(collectionName)
+    console.log(collectionName);
     client.connect((err) => {
       if (err) {
         console.error("ERROR:", err);
