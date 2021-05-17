@@ -16,18 +16,18 @@ app.get("/", (req, res) => {
 });
 
 // GET POSITION
-app.get("/position/:id", (req, res) => {
+app.get("/positions/:id", (req, res) => {
   res.send("Position " + req.params.id);
 });
 
 // GET ALL POSITIONS
-app.get("/position", async (req, res) => {
+app.get("/positions", async (req, res) => {
   const results = await dbConnection.read("positions")
   res.send(results)
 })
 
 // CREATE POSITION
-app.put("/position", (req, res) => {
+app.put("/positions", (req, res) => {
   const position = {
     title: req.body.title,
     excerpt: req.body.excerpt,

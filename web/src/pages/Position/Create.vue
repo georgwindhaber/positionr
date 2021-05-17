@@ -55,10 +55,11 @@ export default {
       this.$router.push("/");
     },
     submitPosition() {
-      axios("http://localhost:3001/position", {
+      axios("http://localhost:3001/positions", {
         method: "PUT",
         data: {
           title: this.pTitle,
+          excerpt: this.pExcerpt,
           description: this.pDescription,
         },
       }).then((data) => {

@@ -30,7 +30,7 @@ export default defineComponent({
     };
   },
   created() {
-    axios.get("http://localhost:3001/position").then((response) => {
+    axios.get("http://localhost:3001/positions").then((response) => {
       this.positions = response.data;
     });
   },
