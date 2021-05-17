@@ -13,50 +13,20 @@ client.connect();
 
 module.exports = {
   async create(collectionName, data) {
-
     // Connect to db
     const db = client.db(dbName);
+
     const collection = db.collection(collectionName);
     const result = await collection.insertOne(data);
-    console.log(result.result.ok)
+    console.log(result.result.ok);
   },
-  read(collectionName) {
-    console.log(collectionName);
-    client.connect((err) => {
-      if (err) {
-        console.error("ERROR:", err);
-        return;
-      }
+  async read(collectionName) {
+    // Connect to db
+    const db = client.db(dbName);
 
-      // Connect to db
-      const db = client.db(dbName);
-
-      // Check if collection exists
-      db.listCollections()
-        .toArray()
-        .then((collections) => {
-          const existingCollection = collections.find(
-            (collection) => collection.name == collectionName
-          );
-
-          // CASE: Collection exists
-          if (existingCollection) {
-            //
-            // Read all from collections
-            //
-            const collection = db.collection(collectionName);
-            collection.find({}, (err, result) => {
-              console.log(result);
-            });
-          } else {
-            // CASE: Collection does not exist (error)
-            console.error(
-              `ERROR: collection "${collectionName}" does not exist in the database ${dbName}`
-            );
-          }
-          client.close();
-        });
-    });
+    // Read all from collections
+    const collection = db.collection(collectionName);
+    return collection.find({}).toArray()
   },
   update(collectionName, id, data) {},
   delete(collectionName, id) {},

@@ -20,6 +20,12 @@ app.get("/position/:id", (req, res) => {
   res.send("Position " + req.params.id);
 });
 
+// GET ALL POSITIONS
+app.get("/position", async (req, res) => {
+  const results = await dbConnection.read("positions")
+  res.send(results)
+})
+
 // CREATE POSITION
 app.put("/position", (req, res) => {
   const position = {
