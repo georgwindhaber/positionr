@@ -1,5 +1,6 @@
 //  MONGO DB CONNECTION SETTINGS
-const MongoClient = require("mongodb").MongoClient;
+const mongodb = require("mongodb");
+const MongoClient = mongodb.MongoClient;
 
 // Connection URL
 const url = "mongodb://localhost:27017";
@@ -18,15 +19,30 @@ module.exports = {
 
     const collection = db.collection(collectionName);
     const result = await collection.insertOne(data);
-    console.log(result.result.ok);
+    return result;
   },
-  async read(collectionName) {
+  async read(collectionName, query = {}) {
     // Connect to db
     const db = client.db(dbName);
 
     // Read all from collections
     const collection = db.collection(collectionName);
-    return collection.find({}).toArray()
+    let response = await collection.find(query).toArray();
+    console.log("Response", response);
+    return response;
+  },
+  async readById(collectionName, id) {
+    // Connect to db
+    const db = client.db(dbName);
+
+    // Read all from collections
+    const collection = db.collection(collectionName);
+
+    // Create mongodb id
+    const _id = new mongodb.ObjectID(id);
+
+    // query
+    return await collection.findOne({ _id });
   },
   update(collectionName, id, data) {},
   delete(collectionName, id) {},

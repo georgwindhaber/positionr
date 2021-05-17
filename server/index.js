@@ -12,12 +12,13 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("Hello World! This is Position R!");
 });
 
 // GET POSITION
-app.get("/positions/:id", (req, res) => {
-  res.send("Position " + req.params.id);
+app.get("/positions/:id", async (req, res) => {
+  const result = await dbConnection.readById("positions", req.params.id)
+  res.send(result);
 });
 
 // GET ALL POSITIONS
@@ -27,14 +28,14 @@ app.get("/positions", async (req, res) => {
 })
 
 // CREATE POSITION
-app.put("/positions", (req, res) => {
+app.put("/positions", async (req, res) => {
   const position = {
     title: req.body.title,
     excerpt: req.body.excerpt,
     description: req.body.description,
   };
-  dbConnection.create("positions", position);
-  res.send("Created " + req.body);
+  let dbResponse = await dbConnection.create("positions", position);
+  res.send(dbResponse);
 });
 
 app.listen(port, () => {

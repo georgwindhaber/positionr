@@ -8,23 +8,28 @@
     <button @click="voteYes()">Ja!</button>
     <button @click="voteNo()">Nein!</button>
   </div>
-  <div v-else>
-    <router-link to="/">Goober</router-link>
-  </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
-  props: {
-    position: {
-      type: Object,
-      default: null,
-    },
+  data() {
+    return {
+      position: null,
+    };
   },
   computed: {
     positionId() {
       return this.$route.params.id;
     },
+  },
+  created() {
+    axios
+      .get("http://localhost:3001/positions/" + this.positionId)
+      .then((response) => {
+        console.log(response)
+        this.position = response.data;
+      });
   },
   methods: {
     goBack() {
