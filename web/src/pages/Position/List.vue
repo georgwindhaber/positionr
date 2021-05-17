@@ -2,7 +2,7 @@
   <div class="container mx-auto h-full">
     <div class="positions flex-col p-3">
       <router-link
-        :to="'/position/' + position.id"
+        :to="'/position/' + position._id"
         v-for="(position, index) of positions"
         :key="index"
       >
@@ -20,24 +20,19 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import axios from "axios";
 
 export default defineComponent({
   name: "App",
   data() {
     return {
-      positions: [
-        {
-          id: 1,
-          title: "Radwege",
-          excerpt: "Lorem ipsum dolor sit amet, consectuor",
-        },
-        {
-          id: 2,
-          title: "Bedingungsloses Grundeinkommen",
-          excerpt: "Jeder soll leben können und das fair",
-        },
-      ],
+      positions: [],
     };
+  },
+  created() {
+    axios.get("http://localhost:3001/position").then((response) => {
+      this.positions = response.data;
+    });
   },
   methods: {},
 });

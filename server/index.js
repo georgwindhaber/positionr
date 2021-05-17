@@ -30,9 +30,9 @@ app.get("/position", async (req, res) => {
 app.put("/position", (req, res) => {
   const position = {
     title: req.body.title,
+    excerpt: req.body.excerpt,
     description: req.body.description,
   };
-  console.log(position);
   dbConnection.create("positions", position);
   res.send("Created " + req.body);
 });

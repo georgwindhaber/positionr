@@ -12,6 +12,15 @@
     </div>
 
     <div class="w-100 pb-3">
+      <label>Vorschautext</label>
+      <input
+        type="text"
+        v-model="pExcerpt"
+        class="rounded border border-gray-200 focus:border-gray-300 outline-none"
+      />
+    </div>
+
+    <div class="w-100 pb-3">
       <label>Beschreibung</label>
       <input
         type="text"
@@ -38,6 +47,7 @@ export default {
     return {
       pTitle: "",
       pDescription: "",
+      pExcerpt: "",
     };
   },
   methods: {
