@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="position"
-    class="position w-full rounded shadow-md focus:shadow focus:outline-none p-3 bg-white"
+    class="position rounded shadow-md focus:shadow focus:outline-none p-3 bg-white"
   >
     <h1 class="text-3xl font-bold">{{ position.title }}</h1>
     <h2 class="text-xl text-gray-400">{{ position.excerpt}}</h2>

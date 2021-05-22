@@ -1,6 +1,6 @@
 <template>
-  <div class="container mx-auto h-full">
-    <div class="positions flex-col p-3">
+  <div class="container mx-auto">
+    <div class="positions flex-col">
       <router-link
         :to="'/position/' + position._id"
         v-for="(position, index) of positions"
