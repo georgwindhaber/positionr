@@ -1,5 +1,5 @@
 <template>
-  <div class="rounded shadow-md m-3 p-3 bg-white">
+  <div class="rounded shadow-md p-3 bg-white">
     <h1>Neue Position</h1>
 
     <div class="w-100 pb-3">
@@ -51,9 +51,6 @@ export default {
     };
   },
   methods: {
-    checkAndSave() {
-      this.$router.push("/");
-    },
     submitPosition() {
       axios("http://localhost:3001/positions", {
         method: "PUT",
@@ -62,8 +59,10 @@ export default {
           excerpt: this.pExcerpt,
           description: this.pDescription,
         },
-      }).then((data) => {
-        console.log(data);
+      }).then((response) => {
+        console.log(response);
+        console.log("/position/" + response.data.insertedId)
+        this.$router.replace("/position/" + response.data.insertedId);
       });
     },
   },

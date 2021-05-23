@@ -50,7 +50,8 @@ export default {
       axios
         .delete("http://localhost:3001/positions/" + this.positionId)
         .then((response) => {
-          console.log(response);
+          console.log(response)
+          this.$router.go(-1)
         });
     },
   },
