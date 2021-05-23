@@ -38,6 +38,13 @@ app.put("/positions", async (req, res) => {
   res.send(dbResponse);
 });
 
+// DELETE POSITION
+app.delete("/positions/:id", async (req, res) => {
+
+  let dbResponse = await dbConnection.delete("positions", req.params.id)
+  res.send(dbResponse)
+})
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });

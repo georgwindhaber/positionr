@@ -45,5 +45,17 @@ module.exports = {
     return await collection.findOne({ _id });
   },
   update(collectionName, id, data) {},
-  delete(collectionName, id) {},
+  async delete(collectionName, id) {
+    // Connect to db
+    const db = client.db(dbName);
+
+    // Read all from collections
+    const collection = db.collection(collectionName);
+
+    // Create mongodb id
+    const _id = new mongodb.ObjectID(id);
+
+    // query
+    return await collection.deleteOne({ _id });
+  },
 };
