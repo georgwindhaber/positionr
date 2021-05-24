@@ -17,15 +17,15 @@ app.get("/", (req, res) => {
 
 // GET POSITION
 app.get("/positions/:id", async (req, res) => {
-  const result = await dbConnection.readById("positions", req.params.id)
+  const result = await dbConnection.readById("positions", req.params.id);
   res.send(result);
 });
 
 // GET ALL POSITIONS
 app.get("/positions", async (req, res) => {
-  const results = await dbConnection.read("positions")
-  res.send(results)
-})
+  const results = await dbConnection.read("positions");
+  res.send(results);
+});
 
 // CREATE POSITION
 app.put("/positions", async (req, res) => {
@@ -38,12 +38,27 @@ app.put("/positions", async (req, res) => {
   res.send(dbResponse);
 });
 
+// UPDATE POSITION
+app.put("/positions/:id", async (req, res) => {
+  const position = {
+    title: req.body.title,
+    excerpt: req.body.excerpt,
+    description: req.body.description,
+  };
+  console.log("-----", position, req.body.title);
+  let dbResponse = await dbConnection.update(
+    "positions",
+    req.params.id,
+    position
+  );
+  res.send(dbResponse);
+});
+
 // DELETE POSITION
 app.delete("/positions/:id", async (req, res) => {
-
-  let dbResponse = await dbConnection.delete("positions", req.params.id)
-  res.send(dbResponse)
-})
+  let dbResponse = await dbConnection.delete("positions", req.params.id);
+  res.send(dbResponse);
+});
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

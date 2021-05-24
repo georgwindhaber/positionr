@@ -28,7 +28,6 @@ module.exports = {
     // Read all from collections
     const collection = db.collection(collectionName);
     let response = await collection.find(query).toArray();
-    console.log("Response", response);
     return response;
   },
   async readById(collectionName, id) {
@@ -44,7 +43,21 @@ module.exports = {
     // query
     return await collection.findOne({ _id });
   },
-  update(collectionName, id, data) {},
+  async update(collectionName, id, data) {
+    // Connect to db
+    const db = client.db(dbName);
+
+    // Read all from collections
+    const collection = db.collection(collectionName);
+
+    // Create mongodb id
+    const _id = new mongodb.ObjectID(id);
+
+    console.log(data);
+
+    // query
+    return await collection.updateOne({ _id }, { $set: data });
+  },
   async delete(collectionName, id) {
     // Connect to db
     const db = client.db(dbName);

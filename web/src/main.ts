@@ -6,6 +6,7 @@ import Root from "./Root.vue";
 import List from "./pages/Position/List.vue";
 import Create from "./pages/Position/Create.vue";
 import Position from "./pages/Position/Position.vue";
+import Update from "./pages/Position/Update.vue";
 
 import "./index.css";
 
@@ -18,6 +19,7 @@ const routes = [
   { path: "/", component: List },
   { path: "/position/create", component: Create },
   { path: "/position/:id", component: Position },
+  { path: "/position/edit/:id", component: Update },
 ];
 const router = createRouter({
   history,
