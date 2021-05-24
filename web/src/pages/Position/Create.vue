@@ -60,8 +60,6 @@ export default {
           description: this.pDescription,
         },
       }).then((response) => {
-        console.log(response);
-        console.log("/position/" + response.data.insertedId)
         this.$router.replace("/position/" + response.data.insertedId);
       });
     },

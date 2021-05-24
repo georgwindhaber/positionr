@@ -61,7 +61,6 @@ export default {
   },
   methods: {
     updatePosition() {
-      console.log(this.pTitle);
       axios("http://localhost:3001/positions/" + this.$route.params.id, {
         method: "PUT",
         data: {
