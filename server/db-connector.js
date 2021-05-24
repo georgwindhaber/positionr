@@ -53,8 +53,6 @@ module.exports = {
     // Create mongodb id
     const _id = new mongodb.ObjectID(id);
 
-    console.log(data);
-
     // query
     return await collection.updateOne({ _id }, { $set: data });
   },

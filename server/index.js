@@ -45,7 +45,6 @@ app.put("/positions/:id", async (req, res) => {
     excerpt: req.body.excerpt,
     description: req.body.description,
   };
-  console.log("-----", position, req.body.title);
   let dbResponse = await dbConnection.update(
     "positions",
     req.params.id,
