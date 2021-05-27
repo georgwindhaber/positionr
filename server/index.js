@@ -15,6 +15,12 @@ app.get("/", (req, res) => {
   res.send("Hello World! This is Position R!");
 });
 
+/*
+ *
+ * --- POSITIONS ---
+ *
+ */
+
 // GET POSITION
 app.get("/positions/:id", async (req, res) => {
   const result = await dbConnection.readById("positions", req.params.id);
@@ -56,6 +62,28 @@ app.put("/positions/:id", async (req, res) => {
 // DELETE POSITION
 app.delete("/positions/:id", async (req, res) => {
   let dbResponse = await dbConnection.delete("positions", req.params.id);
+  res.send(dbResponse);
+});
+
+// GET VOTES FOR POSITION
+app.get("/positions/:id/votes", async (req, res) => {
+  let dbResponse = await dbConnection.count("votes", "vote");
+  res.send(dbResponse);
+});
+
+/*
+ *
+ * --- VOTES ---
+ *
+ */
+
+// CREATE VOTE
+app.put("/votes", async (req, res) => {
+  const vote = {
+    positionId: req.body.positionId,
+    vote: req.body.vote,
+  };
+  let dbResponse = await dbConnection.create("votes", vote);
   res.send(dbResponse);
 });
 

@@ -69,7 +69,6 @@ export default {
           description: this.pDescription,
         },
       }).then((response) => {
-        console.log(response);
         this.$router.replace("/position/" + this.$route.params.id);
       });
     },

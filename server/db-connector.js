@@ -69,4 +69,19 @@ module.exports = {
     // query
     return await collection.deleteOne({ _id });
   },
+  async count(collectionName, fieldToGroup) {
+    // Connect to db
+    const db = client.db(dbName);
+
+    // Read all from collections
+    const collection = db.collection(collectionName);
+    let response = await collection
+      .aggregate([
+        {
+          $group: { _id: "$" + fieldToGroup, count: { $sum: 1 } },
+        },
+      ])
+      .toArray();
+    return response;
+  },
 };

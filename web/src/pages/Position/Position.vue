@@ -14,14 +14,20 @@
     </div>
     <h2 class="text-xl text-gray-400">{{ position.excerpt }}</h2>
     <p>{{ position.description }}</p>
-    <button @click="voteYes()">Ja!</button>
-    <button @click="voteNo()">Nein!</button>
+    <div class="flex justify-between mt-3">
+      <pr-button @click="vote('yes')">Ja!</pr-button>
+      <pr-button @click="vote('no')">Nein!</pr-button>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import PrButton from "../../components/PrButton.vue";
 export default {
+  components: {
+    PrButton,
+  },
   data() {
     return {
       position: null,
@@ -36,7 +42,6 @@ export default {
     axios
       .get("http://localhost:3001/positions/" + this.positionId)
       .then((response) => {
-        console.log(response);
         this.position = response.data;
       });
   },
@@ -50,6 +55,24 @@ export default {
         .then(() => {
           this.$router.go(-1);
         });
+    },
+    vote(vote) {
+      axios("http://localhost:3001/votes", {
+        method: "PUT",
+        data: {
+          positionId: this.$route.params.id,
+          vote,
+        },
+      }).then((response) => {
+        axios(
+          "http://localhost:3001/positions/" + this.$route.params.id + "/votes",
+          {
+            method: "GET",
+          }
+        ).then((response) => {
+          console.log(response.data);
+        });
+      });
     },
   },
 };
