@@ -15,8 +15,8 @@
     <h2 class="text-xl text-gray-400">{{ position.excerpt }}</h2>
     <p>{{ position.description }}</p>
     <div class="flex justify-between mt-3">
-      <pr-button @click="vote('yes')">Ja!</pr-button>
-      <pr-button @click="vote('no')">Nein!</pr-button>
+      <pr-button @click="vote('yes')">Ja! ({{ yes }})</pr-button>
+      <pr-button @click="vote('no')">Nein! ({{ no }})</pr-button>
     </div>
   </div>
 </template>
@@ -31,11 +31,41 @@ export default {
   data() {
     return {
       position: null,
+      votes: null,
     };
   },
   computed: {
     positionId() {
       return this.$route.params.id;
+    },
+    yes() {
+      if (!this.votes) {
+        return "...";
+      }
+
+      const yes = this.votes.find((voteType) => {
+        return voteType._id == "yes";
+      });
+
+      if (yes) {
+        return yes.count;
+      } else {
+        return 0;
+      }
+    },
+    no() {
+      if (!this.votes) {
+        return "...";
+      }
+      const no = this.votes.find((voteType) => {
+        return voteType._id == "no";
+      });
+
+      if (no) {
+        return no.count;
+      } else {
+        return 0;
+      }
     },
   },
   created() {
@@ -44,6 +74,8 @@ export default {
       .then((response) => {
         this.position = response.data;
       });
+
+    this.getVotes();
   },
   methods: {
     goBack() {
@@ -64,14 +96,22 @@ export default {
           vote,
         },
       }).then((response) => {
-        axios(
-          "http://localhost:3001/positions/" + this.$route.params.id + "/votes",
-          {
-            method: "GET",
-          }
-        ).then((response) => {
-          console.log(response.data);
-        });
+        this.getVotes();
+      });
+    },
+    getVotes() {
+      axios(
+        "http://localhost:3001/positions/" + this.$route.params.id + "/votes",
+        {
+          method: "GET",
+        }
+      ).then((response) => {
+        console.log(response, response.data.length);
+        if (response.statusText == "OK" && response.data.length != 0) {
+          this.votes = response.data;
+        } else {
+          this.votes = null;
+        }
       });
     },
   },

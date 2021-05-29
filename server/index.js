@@ -67,7 +67,11 @@ app.delete("/positions/:id", async (req, res) => {
 
 // GET VOTES FOR POSITION
 app.get("/positions/:id/votes", async (req, res) => {
-  let dbResponse = await dbConnection.count("votes", "vote");
+  let dbResponse = await dbConnection.count(
+    "votes",
+    { positionId: req.params.id },
+    "vote"
+  );
   res.send(dbResponse);
 });
 
