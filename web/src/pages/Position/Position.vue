@@ -106,7 +106,6 @@ export default {
           method: "GET",
         }
       ).then((response) => {
-        console.log(response, response.data.length);
         if (response.statusText == "OK" && response.data.length != 0) {
           this.votes = response.data;
         } else {

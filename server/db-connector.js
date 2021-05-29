@@ -11,29 +11,21 @@ const client = new MongoClient(url, {
 });
 
 client.connect();
+const db = client.db(dbName);
 
 module.exports = {
   async create(collectionName, data) {
-    // Connect to db
-    const db = client.db(dbName);
-
     const collection = db.collection(collectionName);
     const result = await collection.insertOne(data);
     return result;
   },
   async read(collectionName, query = {}) {
-    // Connect to db
-    const db = client.db(dbName);
-
     // Read all from collections
     const collection = db.collection(collectionName);
     let response = await collection.find(query).toArray();
     return response;
   },
   async readById(collectionName, id) {
-    // Connect to db
-    const db = client.db(dbName);
-
     // Read all from collections
     const collection = db.collection(collectionName);
 
@@ -44,9 +36,6 @@ module.exports = {
     return await collection.findOne({ _id });
   },
   async update(collectionName, id, data) {
-    // Connect to db
-    const db = client.db(dbName);
-
     // Read all from collections
     const collection = db.collection(collectionName);
 
@@ -57,9 +46,6 @@ module.exports = {
     return await collection.updateOne({ _id }, { $set: data });
   },
   async delete(collectionName, id) {
-    // Connect to db
-    const db = client.db(dbName);
-
     // Read all from collections
     const collection = db.collection(collectionName);
 
@@ -70,9 +56,6 @@ module.exports = {
     return await collection.deleteOne({ _id });
   },
   async count(collectionName, query, fieldToGroup) {
-    // Connect to db
-    const db = client.db(dbName);
-
     // Read all from collections
     const collection = db.collection(collectionName);
     let response = await collection
