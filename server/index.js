@@ -3,7 +3,14 @@ const cors = require("cors");
 const app = express();
 const port = 3001;
 
+// Passport
+const jwt = require("jsonwebtoken");
+const passport = require("passport");
+
+const secrets = require("./secrets");
 const dbConnection = require("./db-connector");
+
+require("./authentication");
 
 // Allow CORS
 app.use(cors());
@@ -28,10 +35,14 @@ app.get("/positions/:id", async (req, res) => {
 });
 
 // GET ALL POSITIONS
-app.get("/positions", async (req, res) => {
-  const results = await dbConnection.read("positions");
-  res.send(results);
-});
+app.get(
+  "/positions",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const results = await dbConnection.read("positions");
+    res.send(results);
+  }
+);
 
 // CREATE POSITION
 app.put("/positions", async (req, res) => {
@@ -91,6 +102,70 @@ app.put("/votes", async (req, res) => {
   res.send(dbResponse);
 });
 
+/*
+ *
+ * --- USERS ---
+ *
+ */
+
+// GET ALL USERS
+app.get("/users", async (req, res) => {
+  const results = await dbConnection.read("users");
+  res.send(results);
+});
+
+app.get("/users/:id/positions", async (req, res) => {
+  const results = await dbConnection.read("");
+  res.send(results);
+});
+
+/*
+ *
+ * --- AUTHENTICATION USERS ---
+ *
+ */
+// CREATE AUTH USER
+app.put("/authUser", async (req, res) => {
+  const authUser = {
+    email: req.body.email,
+    password: req.body.password,
+  };
+  let dbResponse = await dbConnection.create("authUsers", authUser);
+  res.send(dbResponse);
+});
+
+/*
+ *
+ * --- LOGIN ---
+ *
+ */
+// LOGIN
+app.post("/login", async (req, res) => {
+  passport.authenticate("local", { session: false }, (err, user) => {
+    if (err || !user) {
+      console.log(err, user)
+      return res.status(400).json({
+        message: "Something is not right",
+        user: user,
+      });
+    }
+    req.login(user, { session: false }, (err) => {
+      if (err) {
+        res.send(err);
+      }
+      // generate a signed son web token with the contents
+      // of user object and return it in the response
+      const token = jwt.sign({ email: user.email }, secrets.jwtToken);
+      return res.json(token);
+    });
+  })(req, res);
+});
+
+/*
+ *
+ * --- Starting the server ---
+ *
+ */
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
