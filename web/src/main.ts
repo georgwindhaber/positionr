@@ -2,11 +2,13 @@ import { createApp } from "vue";
 import { createWebHistory, createRouter } from "vue-router";
 import Root from "./Root.vue";
 
-// Import Pages
+// -- Import Pages --
 import List from "./pages/Position/List.vue";
 import Create from "./pages/Position/Create.vue";
 import Position from "./pages/Position/Position.vue";
 import Update from "./pages/Position/Update.vue";
+
+import Login from "./pages/Login/Login.vue";
 
 import "./index.css";
 
@@ -20,6 +22,8 @@ const routes = [
   { path: "/position/create", component: Create },
   { path: "/position/:id", component: Position },
   { path: "/position/edit/:id", component: Update },
+
+  { path: "/login", component: Login },
 ];
 const router = createRouter({
   history,

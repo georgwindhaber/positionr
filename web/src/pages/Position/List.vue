@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto">
+  <div class="container mx-auto px-3">
     <div class="positions flex-col">
       <router-link
         :to="'/position/' + position._id"
@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import axios from "axios";
+import connector from "../../modules/connector/connector"
 
 export default defineComponent({
   name: "App",
@@ -30,7 +30,7 @@ export default defineComponent({
     };
   },
   created() {
-    axios.get("http://localhost:3001/positions").then((response) => {
+    connector.get("/positions").then((response) => {
       this.positions = response.data;
     });
   },
