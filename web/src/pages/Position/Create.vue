@@ -1,5 +1,5 @@
 <template>
-  <div class="rounded shadow-md p-3 bg-white">
+  <div class="rounded shadow-md m-3 p-3 bg-white">
     <h1>Neue Position</h1>
 
     <div class="w-100 pb-3">

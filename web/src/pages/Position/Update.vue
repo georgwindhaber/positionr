@@ -1,5 +1,5 @@
 <template>
-  <div class="rounded shadow-md p-3 bg-white">
+  <div class="rounded shadow-md m-3 p-3 bg-white">
     <h1>Update {{ pTitle }}</h1>
 
     <div class="w-100 pb-3">
@@ -7,7 +7,12 @@
       <input
         type="text"
         v-model="pTitle"
-        class="rounded border border-gray-200 focus:border-gray-300 outline-none"
+        class="
+          rounded
+          border border-gray-200
+          focus:border-gray-300
+          outline-none
+        "
       />
     </div>
 
@@ -16,7 +21,12 @@
       <input
         type="text"
         v-model="pExcerpt"
-        class="rounded border border-gray-200 focus:border-gray-300 outline-none"
+        class="
+          rounded
+          border border-gray-200
+          focus:border-gray-300
+          outline-none
+        "
       />
     </div>
 
@@ -25,14 +35,27 @@
       <input
         type="text"
         v-model="pDescription"
-        class="rounded border border-gray-200 focus:border-gray-300 outline-none"
+        class="
+          rounded
+          border border-gray-200
+          focus:border-gray-300
+          outline-none
+        "
       />
     </div>
 
     <button
       type="submit"
       @click="updatePosition"
-      class="rounded px-5 py-2 bg-white hover:bg-gray-100 shadow focus:shadow-sm"
+      class="
+        rounded
+        px-5
+        py-2
+        bg-white
+        hover:bg-gray-100
+        shadow
+        focus:shadow-sm
+      "
     >
       Updaten
     </button>

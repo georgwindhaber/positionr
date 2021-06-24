@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="position"
-    class="position rounded shadow-md focus:shadow focus:outline-none p-3 bg-white"
+    class="position rounded shadow-md focus:shadow focus:outline-none m-3 p-3 bg-white"
   >
     <div class="flex justify-between">
       <h1 class="text-3xl font-bold">{{ position.title }}</h1>
